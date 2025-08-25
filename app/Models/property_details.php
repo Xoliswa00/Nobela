@@ -9,19 +9,20 @@ class property_details extends Model
 {
     /** @use HasFactory<\Database\Factories\PropertyDetailsFactory> */
     use HasFactory;
-       protected $fillable = [
-        'venture_item_id',
-        'house_size',
-        'yard_size',
-        'bedrooms',
-        'bathrooms',
-        'price',
-        'address',
-        'bank_approval_status'
+     protected $fillable = [
+        'title', 'description', 'price', 'address', 'city', 'state', 
+        'country', 'bedrooms', 'bathrooms', 'garage', 'parking_spaces', 
+        'property_type', 'status'
     ];
 
-    public function ventureItem()
-    {
-        return $this->belongsTo(venture_items::class);
-    }
+public function images()
+{
+    return $this->hasMany(propert_img::class, 'property_details_id');
+}
+
+    public function requests()
+{
+    return $this->morphMany(ServiceRequest::class, 'requestable');
+}
+
 }

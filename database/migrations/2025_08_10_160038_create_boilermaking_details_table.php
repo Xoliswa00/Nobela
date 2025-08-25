@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('boilermaking_details', function (Blueprint $table) {
             $table->id();
-             $table->foreignId('venture_item_id')->constrained('venture_items')->onDelete('cascade');
-        $table->text('project_details');
-        $table->string('status', 50)->default('requested');
-            $table->timestamps();
+           $table->string('name'); // Project or service name
+    $table->string('type'); // Type of boilermaking (industrial, residential, etc.)
+    $table->integer('duration_days')->nullable(); // Estimated duration in days
+    $table->decimal('cost', 12, 2)->nullable(); // Estimated cost
+    $table->text('description')->nullable(); // Full project/service description
+    $table->json('materials')->nullable(); // List of materials used
+    $table->string('status')->default('pending'); // Status: pending, in-progress, completed
+      $table->timestamps();
         });
     }
 

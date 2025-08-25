@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Business Center</title>
+  <title>Nobela Enterprise</title>
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}" />
   <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}" />
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon-32x32.png') }}" />
   <link rel="manifest" href="{{ asset('site.webmanifest') }}" />
   <meta name="theme-color" content="#0d6efd" />
 
@@ -208,226 +208,443 @@
 </head>
 
 <body>
-<header class="d-flex align-items-center justify-content-between px-4 py-3" style="background: linear-gradient(90deg, #0d6efd, #0a58ca); color: white;">
-  <div>
-    <img src="{{ asset('K.png') }}" alt="Company Logo" height="50" />
-  </div>
-  <div class="text-end">
-    <h1 class="fw-bold mb-1">Our Business Ventures</h1>
-  </div>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background: linear-gradient(90deg, #737d8e, #0a58ca);">
+    <div class="container-fluid">
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="{{ asset('K.png') }}" alt="Company Logo" height="50" class="me-2 rounded shadow-sm"/>
+        <span class="fw-bold fs-5">Our Business Ventures</span>
+      </a>
+
+      <!-- Hamburger toggle for mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Nav links -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item">
+            <a href="#" class="nav-link active" data-bs-target="#about-tab">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-bs-target="#about-tab">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-bs-target="#property-tab">Property</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-bs-target="#logistics-tab">Logistics</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-bs-target="#boilermaking-tab">Boilermaking</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-bs-target="#other-tab">Other Ventures</a>
+          </li>
+        </ul>
+
+        <!-- Register & Login buttons -->
+        <div class="d-flex ms-lg-3 mt-2 mt-lg-0">
+          <a href="{{ route('register') }}" class="btn btn-outline-light me-2 shadow-sm">Register</a>
+          <a href="{{ route('login') }}" class="btn btn-light shadow-sm">Login</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Script for tab linking -->
+  <script>
+    document.querySelectorAll('a[data-bs-target]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const tabButton = document.querySelector(link.getAttribute('data-bs-target'));
+        const tabInstance = bootstrap.Tab.getOrCreateInstance(tabButton);
+        tabInstance.show();
+
+        // Toggle active class in header nav
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(nav => nav.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+  </script>
+
+  <style>
+    /* Smooth hover effects */
+    .navbar-nav .nav-link {
+      transition: transform 0.2s, color 0.2s, background-color 0.2s;
+    }
+
+    .navbar-nav .nav-link:hover {
+      transform: translateY(-2px);
+      color: #fff !important;
+      background-color: rgba(255,255,255,0.1);
+      border-radius: 0.35rem;
+    }
+
+    .btn {
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    /* Mobile spacing adjustments */
+    @media (max-width: 991.98px) {
+      .d-flex.ms-lg-3 {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+  </style>
 </header>
+
+
+
 
 
 
   <main class="container my-5" role="main" tabindex="-1">
 
     @php
-    $properties = [
-      [
-        'img' => 'property-1.jpg',
-        'title' => 'Sunny Villa',
-        'bedrooms' => 4,
-        'bathrooms' => 3,
-        'size' => '250 sqm',
-        'price' => '$350,000',
-        'top' => true,
-      ],
-      [
-        'img' => 'property-2.jpg',
-        'title' => 'Urban Apartment',
-        'bedrooms' => 2,
-        'bathrooms' => 2,
-        'size' => '110 sqm',
-        'price' => '$200,000',
-        'top' => false,
-      ],
-      [
-        'img' => 'property-3.jpg',
-        'title' => 'Countryside Cottage',
-        'bedrooms' => 3,
-        'bathrooms' => 2,
-        'size' => '180 sqm',
-        'price' => '$275,000',
-        'top' => true,
-      ],
-      [
-        'img' => 'property-4.jpg',
-        'title' => 'Luxury Penthouse',
-        'bedrooms' => 5,
-        'bathrooms' => 4,
-        'size' => '320 sqm',
-        'price' => '$750,000',
-        'top' => false,
-      ],
-      [
-        'img' => 'property-5.jpg',
-        'title' => 'Beach House',
-        'bedrooms' => 4,
-        'bathrooms' => 3,
-        'size' => '280 sqm',
-        'price' => '$500,000',
-        'top' => true,
-      ],
-    ];
+  
 
     $ventures = [
-      [
-        'id' => 'property',
-        'label' => 'Property',
-        'title' => 'Property Ventures',
-        'description' => 'Explore our real estate listings, rental opportunities, and land development projects.',
-        'form' => '
-          <form class="row g-3 mb-4" method="GET" action="' .
-          route('login') .
-          '">
-            <div class="col-md-4">
-              <input type="text" name="location" class="form-control" placeholder="Location" />
-            </div>
-            <div class="col-md-3">
-              <select name="type" class="form-select">
-                <option value="">Property Type</option>
-                <option value="residential">Residential</option>
-                <option value="commercial">Commercial</option>
-              </select>
-            </div>
-            <div class="col-md-3">
-              <input type="number" name="max_price" class="form-control" placeholder="Max Price" />
-            </div>
-            <div class="col-md-2 d-grid">
-              <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-          </form>
-        ',
-      ],
-      [
-        'id' => 'logistics',
-        'label' => 'Logistics',
-        'title' => 'Logistics Services',
-        'description' =>
-          'Offering transportation, freight, and delivery solutions tailored to your business needs.',
-        'form' => '
-          <form class="row g-3 mb-4" method="GET" action="' .
-          route('login') .
-          '">
-            <div class="col-md-5">
-              <input type="text" name="origin" class="form-control" placeholder="Origin" />
-            </div>
-            <div class="col-md-5">
-              <input type="text" name="destination" class="form-control" placeholder="Destination" />
-            </div>
-            <div class="col-md-2 d-grid">
-              <button type="submit" class="btn btn-primary">Check Availability</button>
-            </div>
-          </form>
-        ',
-      ],
-      [
-        'id' => 'boilermaking',
-        'label' => 'Boilermaking',
-        'title' => 'Boilermaking & Fabrication',
-        'description' =>
-          'Industrial fabrication services including custom boilermaking projects and maintenance.',
-        'form' => '
-          <form class="mb-4" method="POST" action="' .
-          route('login') .
-          '">
-            ' .
-          csrf_field() .
-          '
-            <div class="mb-3">
-              <label for="projectDetails" class="form-label">Project Details</label>
-              <textarea
-                id="projectDetails"
-                name="project_details"
-                class="form-control"
-                rows="4"
-                placeholder="Describe your project"
-              ></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Inquiry</button>
-          </form>
-        ',
-      ],
-      [
-        'id' => 'other',
-        'label' => 'Other Ventures',
-        'title' => 'Other Business Ventures',
-        'description' => 'Discover our new and upcoming business projects and opportunities.',
-        'form' => '',
-      ],
-    ];
-    @endphp
+    ['id'=>'about','label'=>'About Us','title'=>'Nobela Enterprise','description'=>'Nobela Enterprise, located in the heart of Gauteng, is dedicated to helping clients buy, sell, and manage their properties with confidence and care.','form'=>'']
+    
+      ,
+            [
+              'id' => 'property',
+              'label' => 'Property',
+              'title' => 'Property Ventures',
+              'description' => 'Explore our real estate listings, rental opportunities, and land development projects.',
+              'form' => '
+                <form class="row g-3 mb-4" method="GET" action="' .
+                route('login') .
+                '">
+                  <!--<div class="col-md-4">
+                    <input type="text" name="location" class="form-control" placeholder="Location" />
+                  </div>
+                  <div class="col-md-3">
+                    <select name="type" class="form-select">
+                      <option value="">Property Type</option>
+                      <option value="residential">Residential</option>
+                      <option value="commercial">Commercial</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <input type="number" name="max_price" class="form-control" placeholder="Max Price" />
+                  </div>
+                  <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                  </div>
+                </form> --->
+              ',
+            ],
+            [
+              'id' => 'logistics',
+              'label' => 'Logistics',
+              'title' => 'Logistics Services',
+              'description' =>
+                'Offering transportation, freight, and delivery solutions tailored to your business needs.',
+              'form' => '
+                <form class="row g-3 mb-4" method="GET" action="' .
+                route('login') .
+                '">
+                  <div class="col-md-5">
+                    <input type="text" name="origin" class="form-control" placeholder="Origin" />
+                  </div>
+                  <div class="col-md-5">
+                    <input type="text" name="destination" class="form-control" placeholder="Destination" />
+                  </div>
+                  <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-primary">Check Availability</button>
+                  </div>
+                </form>
+              ',
+            ],
+            [
+              'id' => 'boilermaking',
+              'label' => 'Boilermaking',
+              'title' => 'Boilermaking & Fabrication',
+              'description' =>
+                'Industrial fabrication services including custom boilermaking projects and maintenance.',
+              'form' => '
+                <form class="mb-4" method="POST" action="' .
+                route('login') .
+                '">
+                  ' .
+                csrf_field() .
+                '
+                  <div class="mb-3">
+                    <label for="projectDetails" class="form-label">Project Details</label>
+                    <textarea
+                      id="projectDetails"
+                      name="project_details"
+                      class="form-control"
+                      rows="4"
+                      placeholder="Describe your project"
+                    ></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit Inquiry</button>
+                </form>
+              ',
+            ],
+            [
+              'id' => 'other',
+              'label' => 'Other Ventures',
+              'title' => 'Other Business Ventures',
+              'description' => 'Discover our new and upcoming business projects and opportunities.',
+              'form' => '',
+            ],
+          ];
+          @endphp
 
-    {{-- Nav Tabs --}}
-    <ul class="nav nav-tabs mb-4" id="ventureTabs" role="tablist">
-      @foreach ($ventures as $index => $venture)
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link {{ $index === 0 ? 'active' : '' }}"
-            id="{{ $venture['id'] }}-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#{{ $venture['id'] }}"
-            type="button"
-            role="tab"
-            aria-controls="{{ $venture['id'] }}"
-            aria-selected="{{ $index === 0 ? 'true' : 'false' }}"
-          >
-            {{ $venture['label'] }}
-          </button>
-        </li>
-      @endforeach
-    </ul>
-
-    {{-- Tab Content --}}
-    <div class="tab-content" id="ventureTabsContent">
-      @foreach ($ventures as $index => $venture)
-        <div
-          class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
-          id="{{ $venture['id'] }}"
-          role="tabpanel"
-          aria-labelledby="{{ $venture['id'] }}-tab"
-          tabindex="0"
-        >
-          <h2 class="mb-3">{{ $venture['title'] }}</h2>
-          <p class="mb-4 text-secondary">{{ $venture['description'] }}</p>
-
-          {!! $venture['form'] !!}
-
-          {{-- Property cards only on property tab --}}
-          @if ($venture['id'] === 'property')
-            <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
-              @foreach ($properties as $property)
-                <article
-                  class="property-card col"
-                  tabindex="0"
-                  aria-label="{{ $property['title'] }}, {{ $property['bedrooms'] }} bedrooms, {{ $property['bathrooms'] }} bathrooms, {{ $property['size'] }}, priced at {{ $property['price'] }}"
+          {{-- Nav Tabs --}}
+          <ul class="nav nav-tabs mb-4" id="ventureTabs" role="tablist">
+            @foreach ($ventures as $index => $venture)
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link {{ $index === 0 ? 'active' : '' }}"
+                  id="{{ $venture['id'] }}-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#{{ $venture['id'] }}"
+                  type="button"
+                  role="tab"
+                  aria-controls="{{ $venture['id'] }}"
+                  aria-selected="{{ $index === 0 ? 'true' : 'false' }}"
                 >
-                  @if ($property['top'])
-                    <span class="badge-top-purchase" aria-hidden="true">Top Purchase</span>
-                  @endif
+                  {{ $venture['label'] }}
+                </button>
+              </li>
+            @endforeach
+          </ul>
+
+          {{-- Tab Content --}}
+          <div class="tab-content" id="ventureTabsContent">
+            @foreach ($ventures as $index => $venture)
+              <div
+                class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
+                id="{{ $venture['id'] }}"
+                role="tabpanel"
+                aria-labelledby="{{ $venture['id'] }}-tab"
+                tabindex="0"
+              >
+                <h2 class="mb-3">{{ $venture['title'] }}</h2>
+                <p class="mb-4 text-secondary">{{ $venture['description'] }}</p>
+
+                {!! $venture['form'] !!}
+
+                {{-- Property cards only on property tab --}}
+      @if ($venture['id'] === 'property')
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+        @foreach ($properties as $property)
+            <article
+                class="property-card col position-relative"
+                tabindex="0"
+                aria-label="{{ $property->title }}, {{ $property->bedrooms }} bedrooms, {{ $property->bathrooms }} bathrooms, {{ $property->size }}m², priced at R{{ number_format($property->price, 2) }}"
+            >
+                {{-- Badge Top Purchase --}}
+                @if ($property->is_featured ?? false)
+                    <span class="badge-top-purchase position-absolute" aria-hidden="true">Top Purchase</span>
+                @endif
+
+                {{-- Main Image --}}
+                @if($property->images->count() > 0)
+                    <img
+                        src="{{ asset('storage/'.$property->images->first()->image_path) }}"
+                        alt="{{ $property->title }}"
+                        loading="lazy"
+                        class="w-100"
+                    >
+                    {{-- Optional: Small gallery thumbnails --}}
+                    <div class="d-flex gap-2 mt-2 overflow-auto">
+                        @foreach($property->images as $img)
+                            <img
+                                src="{{ asset('storage/'.$img->image_path) }}"
+                                alt="Thumbnail"
+                                class="thumbnail-img rounded border"
+                                style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
+                            >
+                        @endforeach
+                    </div>
+                @else
+                    <img
+                        src="{{ asset('img/no-image.jpg') }}"
+                        alt="No Image Available"
+                        class="w-100"
+                    >
+                @endif
+
+                <div class="property-card-body mt-2">
+                    <h3 class="property-card-title">{{ $property->title }}</h3>
+                    <p class="property-details text-muted">
+                        🛏 {{ $property->bedrooms }} &nbsp; | &nbsp; 🛁 {{ $property->bathrooms }} &nbsp; | &nbsp; 📐 {{ $property->size }} m²
+                    </p>
+                    <p class="property-price text-primary">R{{ number_format($property->price, 2) }}</p>
+                    <a href="{{ route('Guest.show', $property->id) }}" class="btn btn-outline-primary btn-view" role="button">View Details</a>
+                </div>
+            </article>
+        @endforeach
+    </div>
+@endif
+
+                {{-- Inside your tab-pane for the "about" tab --}}
+      @if ($venture['id'] === 'about')
+        <div class="row gy-4">
+          <div class="col-md-6">
+            <h5 class="mb-3">Who We Are</h5>
+            <p>
+              Nobela Enterprise is located in the heart of Gauteng. We assist clients in buying,
+              selling, and managing their properties. Before starting the process, we provide
+              counseling to ensure our clients make the right decisions.
+            </p>
+            <p>
+              We also help boost credit scores, assess affordability based on property value,
+              and assist in finding reliable tenants if you plan to use your property for business.
+            </p>
+
+            <h5 class="mb-3">Mission & Vision</h5>
+            <p><strong>Mission:</strong> To guide clients in making informed property and business decisions while providing trusted support services.</p>
+            <p><strong>Vision:</strong> To be the go-to enterprise in Gauteng for property, logistics, and business solutions that uplift individuals and communities.</p>
+
+            <!-- Carousel -->
+            <div id="aboutCarousel" class="carousel slide mt-3" data-bs-ride="carousel">
+              <div class="carousel-inner rounded overflow-hidden">
+                <div class="carousel-item active">
                   <img
-                    src="{{ asset('img/'.$property['img']) }}"
-                    alt="{{ $property['title'] }}"
+                    src="{{ asset('img/property-1.jpg') }}"
+                    class="d-block w-100"
+                    alt="Business Meeting"
                     loading="lazy"
                   />
-                  <div class="property-card-body">
-                    <h3 class="property-card-title">{{ $property['title'] }}</h3>
-                    <p class="property-details">
-                      🛏 {{ $property['bedrooms'] }} &nbsp; | &nbsp; 🛁
-                      {{ $property['bathrooms'] }} &nbsp; | &nbsp; 📐 {{ $property['size'] }}
-                    </p>
-                    <p class="property-price">{{ $property['price'] }}</p>
-                    <a href="#" class="btn btn-outline-primary btn-view" role="button"
-                      >View Details</a
-                    >
-                  </div>
-                </article>
-              @endforeach
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="{{ asset('img/property-3.jpg') }}"
+                    class="d-block w-100"
+                    alt="Property Management"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="{{ asset('img/property-4.jpg') }}"
+                    class="d-block w-100"
+                    alt="Logistics"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="{{ asset('img/property-2.jpg') }}"
+                    class="d-block w-100"
+                    alt="Boilermaking & Fabrication"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#aboutCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#aboutCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+
+              <!-- Optional indicators -->
+              <div class="carousel-indicators position-static mt-3">
+                <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#aboutCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+              </div>
             </div>
-          @endif
+          </div>
+
+          <div class="col-md-6">
+            <h5 class="mb-3">Our Services</h5>
+            <ul class="list-unstyled">
+              <li class="mb-3">
+                <strong>🏠 Property Sales & Rentals</strong><br>
+                <small>Helping you buy, sell, and rent properties with confidence.</small>
+                <ul class="mt-2 small text-muted">
+                  <li>Market analysis & pricing strategy</li>
+                  <li>Buyer pre-qualification guidance</li>
+                  <li>Rental listing & tenant screening</li>
+                </ul>
+              </li>
+              <li class="mb-3">
+                <strong>👥 Property Management</strong><br>
+                <small>Assistance in managing your property and securing reliable tenants.</small>
+                <ul class="mt-2 small text-muted">
+                  <li>Rent collection & statements</li>
+                  <li>Maintenance coordination</li>
+                  <li>Inspection & compliance checks</li>
+                </ul>
+              </li>
+              <li class="mb-3">
+                <strong>💳 Credit Score Assistance</strong><br>
+                <small>Boost your credit score and check affordability before investing.</small>
+                <ul class="mt-2 small text-muted">
+                  <li>Credit health assessment</li>
+                  <li>Affordability & bond readiness checks</li>
+                  <li>Action plan to improve score</li>
+                </ul>
+              </li>
+              <li class="mb-3">
+                <strong>🚚 Logistics & Transportation</strong><br>
+                <small>Reliable freight and delivery solutions tailored to your needs.</small>
+                <ul class="mt-2 small text-muted">
+                  <li>Local & regional deliveries</li>
+                  <li>Real-time status updates</li>
+                  <li>Route optimization</li>
+                </ul>
+              </li>
+              <li class="mb-3">
+                <strong>⚙️ Boilermaking & Fabrication</strong><br>
+                <small>High-quality industrial fabrication with a focus on precision.</small>
+                <ul class="mt-2 small text-muted">
+                  <li>Custom steel work & repairs</li>
+                  <li>On-site assessment & quotes</li>
+                  <li>Quality control & safety first</li>
+                </ul>
+              </li>
+            </ul>
+
+            <h5 class="mb-3 mt-4">Contact Information</h5>
+            <p class="mb-1">
+              <strong>📞 Phone:</strong>
+              <a href="tel:+1234567890" class="link-primary text-decoration-none">+123 456 7890</a>
+            </p>
+            <p class="mb-1">
+              <strong>📧 Email:</strong>
+              <a href="mailto:info@businesscenter.com" class="link-primary text-decoration-none">info@businesscenter.com</a>
+            </p>
+            <p class="mb-1">
+              <strong>📍 Address:</strong>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=123+Business+St,+Gauteng,+South+Africa"
+                target="_blank"
+                rel="noopener"
+                class="link-primary text-decoration-none"
+              >
+                123 Business St, Gauteng, South Africa
+              </a>
+            </p>
+            <p class="mb-1"><strong>🕒 Working Hours:</strong> Mon–Fri 09:00 – 17:00</p>
+          </div>
         </div>
-      @endforeach
-    </div>
+      @endif
+
+          </div>
+        @endforeach
+      </div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -13,14 +13,19 @@ return new class extends Migration
     {
         Schema::create('property_details', function (Blueprint $table) {
             $table->id();
-                    $table->foreignId('venture_item_id')->constrained('venture_items')->onDelete('cascade');
-        $table->string('house_size', 50);
-        $table->string('yard_size', 50)->nullable();
-        $table->unsignedInteger('bedrooms')->default(0);
-        $table->unsignedInteger('bathrooms')->default(0);
-        $table->decimal('price', 15, 2);
-        $table->text('address');
-        $table->string('bank_approval_status', 50)->default('pending');
+           $table->string('title');
+    $table->text('description')->nullable();
+    $table->decimal('price', 12, 2);
+    $table->string('address');
+    $table->string('city');
+    $table->string('state')->nullable();
+    $table->string('country')->default('South Africa');
+    $table->integer('bedrooms')->default(0);
+    $table->integer('bathrooms')->default(0);
+    $table->integer('garage')->default(0);
+    $table->integer('parking_spaces')->default(0);
+    $table->string('property_type')->default('House'); // e.g., House, Apartment
+    $table->string('status')->default('Available'); // Available, Sold, Rented
             $table->timestamps();
         });
     }

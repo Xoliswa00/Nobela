@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('logistics_details', function (Blueprint $table) {
             $table->id();
-                    $table->foreignId('venture_item_id')->constrained('venture_items')->onDelete('cascade');
-        $table->string('origin', 255);
-        $table->string('destination', 255);
-        $table->date('pickup_date')->nullable();
-        $table->date('delivery_date')->nullable();
-        $table->string('vehicle_type', 50)->nullable();
-        $table->string('status', 50)->default('pending');
+    $table->string('name'); // Vehicle/item name
+    $table->string('type'); // Vehicle type (van, truck, etc.)
+    $table->integer('capacity')->nullable(); // Capacity in units/tons
+    $table->string('origin'); // Starting point
+    $table->string('destination'); // End point
+    $table->string('status')->default('available'); // Status: available, in-use, maintenance
+    $table->json('documents')->nullable();
             $table->timestamps();
         });
     }
