@@ -35,7 +35,7 @@
                 <h2 class="text-2xl font-semibold text-gray-700 mb-4">Property Details</h2>
 
                 <p class="mb-2"><strong>Price:</strong> R{{ number_format($property->price, 2) }}</p>
-                <p class="mb-2"><strong>Location:</strong> {{ $property->location }}</p>
+                <p class="mb-2"><strong>Location:</strong> {{ $property->address }}</p>
                 <p class="mb-2"><strong>Bedrooms:</strong> {{ $property->bedrooms }}</p>
                 <p class="mb-2"><strong>Bathrooms:</strong> {{ $property->bathrooms }}</p>
                 <p class="mb-2"><strong>Size:</strong> {{ $property->size }} m²</p>
