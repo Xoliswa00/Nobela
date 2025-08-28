@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('propert_imgs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('property_details_id');
     $table->foreign('property_details_id')
                   ->references('id')
                   ->on('property_details')
